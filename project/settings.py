@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_COOKIE_SECURE = False  
+CSRF_COOKIE_HTTPONLY = False
 
 # Application definition
 
