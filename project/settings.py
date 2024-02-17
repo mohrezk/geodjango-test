@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "users",
     "rest_framework",
     "rest_framework.authtoken",
+
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -159,6 +163,13 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = "users.User"
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+CORS_ALLOWED_ORIGINS = [
+    'https://geodjango-test.onrender.com',
+    '*',
+]
+
 
 
 # GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
