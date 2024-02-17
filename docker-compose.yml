@@ -11,8 +11,8 @@ services:
     depends_on:
       - db
     environment:
-      DEBUG:1
-      SECRET_KEY:"django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
+      DEBUG: 1
+      SECRET_KEY: "django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
   db:
     image: postgis/postgis
     restart: always
@@ -20,6 +20,7 @@ services:
       - POSTGRES_DB: roadside
       - POSTGRES_USER: postgres
       - POSTGRES_PASSWORD: sql12345
+      - POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5432:5432
     expose:
