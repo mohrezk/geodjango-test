@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,17 +83,24 @@ WSGI_APPLICATION = "project.wsgi.application"
 #     }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "roadside",
-        "USER": "postgres",
-        "PASSWORD": "sql12345",
-        "HOST": "db",
-        "PORT": "5432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.contrib.gis.db.backends.postgis",
+#         "NAME": "roadside",
+#         "USER": "postgres",
+#         "PASSWORD": "sql12345",
+#         "HOST": "db",
+#         "PORT": "5432",
+#     }
+# }
 
+
+DATABASES = {
+    'default': dj_database_url.config(  
+        default='postgres://gis:IKYnwIm98Br2jGJyZXZUZNBKLiWapJvl@dpg-cn8gl50cmk4c739qsu8g-a/gis_isep',
+        conn_max_age=600    
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
