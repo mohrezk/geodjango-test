@@ -19,3 +19,5 @@ services:
       POSTGRES_DB: roadside
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sql12345
+    expose:
+      - 5432
