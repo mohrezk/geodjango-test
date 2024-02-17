@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=1
+      - SECRET_KEY="django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
+  db:
+    image: postgis/postgis
+    environment:
+      POSTGRES_DB: roadside
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sql12345
