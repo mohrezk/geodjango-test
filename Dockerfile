@@ -25,8 +25,21 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the project code into the container
 COPY . /code/
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /code/entrypoint.sh
+
+# Give execute permission to the entrypoint script
+RUN chmod +x /code/entrypoint.sh
+
 # Port to expose
 EXPOSE 8000
 
-# Command to run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Command to run the entrypoint script
+ENTRYPOINT ["/code/entrypoint.sh"]
+
+
+# # Port to expose
+# EXPOSE 8000
+
+# # Command to run the application
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
