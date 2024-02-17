@@ -154,5 +154,5 @@ AUTH_USER_MODEL = "users.User"
 ACCOUNT_UNIQUE_EMAIL = True
 
 
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
-GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
+# GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
+# GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
