@@ -167,7 +167,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 CORS_ALLOWED_ORIGINS = [
     'https://geodjango-test.onrender.com',
-    '*',
+    'https://*', 
+    'http://*',
 ]
 
 
