@@ -11,8 +11,13 @@ services:
     depends_on:
       - db
     environment:
-      - DEBUG=1
-      - SECRET_KEY="django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
+      DEBUG:1
+      SECRET_KEY:"django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: roadside
+      DB_USER: postgres
+      DB_PASSWORD: sql12345
   db:
     image: postgis/postgis
     environment:
