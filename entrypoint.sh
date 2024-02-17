@@ -6,8 +6,8 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-echo "Creating superuser..."
-echo "from users.models import User; User.objects.create_superuser('admin2', 'admin@exmaple.com', '12345')" | python manage.py shell
+# echo "Creating superuser..."
+# echo "from users.models import User; User.objects.create_superuser('admin2', 'admin@exmaple.com', '12345')" | python manage.py shell
 
 # Start the Django development server
 echo "Starting Django development server..."
