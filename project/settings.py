@@ -106,7 +106,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(  
-        default='postgres://gis:IKYnwIm98Br2jGJyZXZUZNBKLiWapJvl@dpg-cn8gl50cmk4c739qsu8g-a/gis_isep',
+        default='postgis://gis:IKYnwIm98Br2jGJyZXZUZNBKLiWapJvl@dpg-cn8gl50cmk4c739qsu8g-a/gis_isep',
         conn_max_age=600    
     )
 }
