@@ -18,20 +18,27 @@ class CustomerRegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def save(self, **kwargs):
-        user = User(
-            username=self.validated_data["username"],
-            email=self.validated_data["email"],
-            first_name = self.validated_data["first_name"],
-            last_name = self.validated_data["last_name"]
-        )
+        username = self.validated_data.get("username")
+        email = self.validated_data.get("email")
+        first_name = self.validated_data.get("first_name")
+        last_name = self.validated_data.get("last_name")
+        password = self.validated_data.get("password")
+        password2 = self.validated_data.get("password2")
 
-        password = self.validated_data["password"]
-        password2 = self.validated_data["password2"]
+        if None in (username, email, first_name, last_name, password, password2):
+                raise serializers.ValidationError("All required fields must be provided.")
 
         if password != password2:
             raise serializers.ValidationError({"error": "password do not match"})
         
-        user.set_password(password)
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            password=password
+        )
+
         user.is_customer = True
         user.save()
 
@@ -49,20 +56,27 @@ class ServiceProviderRegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def save(self, **kwargs):
-        user = User(
-            username=self.validated_data["username"],
-            email=self.validated_data["email"],
-            first_name = self.validated_data["first_name"],
-            last_name = self.validated_data["last_name"]
-        )
+        username = self.validated_data.get("username")
+        email = self.validated_data.get("email")
+        first_name = self.validated_data.get("first_name")
+        last_name = self.validated_data.get("last_name")
+        password = self.validated_data.get("password")
+        password2 = self.validated_data.get("password2")
 
-        password = self.validated_data["password"]
-        password2 = self.validated_data["password2"]
+        if None in (username, email, first_name, last_name, password, password2):
+                raise serializers.ValidationError("All required fields must be provided.")
 
         if password != password2:
             raise serializers.ValidationError({"error": "password do not match"})
         
-        user.set_password(password)
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            password=password
+        )
+
         user.is_service_provider = True
         user.save()
 
