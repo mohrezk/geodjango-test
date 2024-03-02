@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import dj_database_url
 from pathlib import Path
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -106,7 +109,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(  
-        default='postgis://gis:IKYnwIm98Br2jGJyZXZUZNBKLiWapJvl@dpg-cn8gl50cmk4c739qsu8g-a/gis_isep',
+        default= os.environ['DB_URL'],
         conn_max_age=600    
     )
 }
