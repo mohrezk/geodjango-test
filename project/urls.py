@@ -23,4 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include("users.api.urls")),
     path('api/', include("location.api.urls")),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

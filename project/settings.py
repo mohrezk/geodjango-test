@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "django-insecure-ul7v=xw#ei_m*((y1+nkbfg)b1z+-061dryusr=ymp+-+y3!%g"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "location",
     "rest_framework",
     "rest_framework.authtoken",
-
+    "django_rest_passwordreset", 
     "corsheaders",
 
     "django.contrib.gis",
@@ -69,7 +69,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        'DIRS': [BASE_DIR, 'templates/',],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -109,7 +109,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(  
-        default= os.environ['DB_URL'],
+        default= "postgis://roadside_user:i3aJQjcxSOQqGMKq0NsTAlhOqdXnUt0K@dpg-cnhp33q1hbls73ckgpug-a.frankfurt-postgres.render.com/roadside",
         conn_max_age=600    
     )
 }
@@ -131,6 +131,12 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '3255facbb4c0da'
+EMAIL_HOST_PASSWORD = '9479d50472e064'
+EMAIL_PORT = '2525'
 
 
 # Internationalization
@@ -188,5 +194,5 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-# GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
-# GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
+GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
+GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
