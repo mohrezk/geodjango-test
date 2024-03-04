@@ -5,8 +5,8 @@ from django.contrib.gis.db import models
 from django.contrib.gis.forms import OSMWidget
 
 
-class YourModelAdmin(admin.ModelAdmin):
+class Map(admin.ModelAdmin):
     formfield_overrides = {models.PointField: {"widget": OSMWidget}}
 
 
-admin.site.register(Location, YourModelAdmin)
+admin.site.register(Location, Map)

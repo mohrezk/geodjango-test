@@ -1,5 +1,5 @@
 from location.models import Location
-from rest_framework import generics
+from rest_framework.generics import GenericAPIView
 
 from .serializers import LocationSerializer
 from rest_framework.authentication import TokenAuthentication
@@ -21,16 +21,26 @@ class LocationView(APIView):
         token = self.request.auth
         user = Token.objects.get(key=token).user
 
-        location_data = request.data.get('location')
+        location_data = request.data.get("location")
 
         location_instance = Location.objects.filter(user=user).first()
-        
+
         if location_instance:
-            serializer = LocationSerializer(location_instance, data={'location': location_data, 'timestamp': timezone.now()}, partial=True)
+            serializer = LocationSerializer(
+                location_instance,
+                data={"location": location_data, "timestamp": timezone.now()},
+                partial=True,
+            )
 
         else:
-            serializer = LocationSerializer(data={'user': user.id, 'location': location_data, 'timestamp': timezone.now()})
-        
+            serializer = LocationSerializer(
+                data={
+                    "user": user.id,
+                    "location": location_data,
+                    "timestamp": timezone.now(),
+                }
+            )
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
