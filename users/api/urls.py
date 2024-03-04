@@ -4,7 +4,7 @@ from .views import (
     ServiceProviderRegisterView,
     CustomAuthToken,
     LogoutView,
-    change_password
+    ChangePasswordAPIView
 )
 
 urlpatterns=[
@@ -12,7 +12,7 @@ urlpatterns=[
     path('signup/service-provider/', ServiceProviderRegisterView.as_view()),
     path('login/',CustomAuthToken.as_view(), name='auth-token'),
     path('logout/', LogoutView.as_view(), name='logout-view'),
-    path('change-password/', change_password, name='change-password'),
+    path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
 
 
 ]
