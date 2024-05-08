@@ -35,6 +35,7 @@ class Customer(models.Model):
 class ServiceProvider(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="service_provider", on_delete=models.CASCADE)
     services = models.CharField(max_length=255)
+    description = models.CharField(max_length=255,blank=True, null=True)
     
     def __str__(self):
         return self.user.username
