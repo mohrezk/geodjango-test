@@ -45,17 +45,19 @@ class NearbyServiceProvidersAndUsers(APIView):
         user = Token.objects.get(key=token).user
         radius = request.data.get("radius", 5000)  # Default radius value if not provided
         service_type = request.data.get("service_type")
-
-        user_location = Location.objects.get(user=user).location
+        
+        # Extract current location from request body
+        current_location_data = request.data.get("current_location")
+        current_location = Point(current_location_data['longitude'], current_location_data['latitude'])
 
         if service_type:
             nearby_providers_locations = Location.objects.filter(
-                location__distance_lte=(user_location, Distance(km=radius)),
+                location__distance_lte=(current_location, Distance(km=radius)),
                 user__service_provider__services__contains=service_type
             ).exclude(user=user)
         else:
             nearby_providers_locations = Location.objects.filter(
-                location__distance_lte=(user_location, Distance(km=radius))
+                location__distance_lte=(current_location, Distance(km=radius))
             ).exclude(user=user)
 
         nearby_providers_info = [
@@ -64,7 +66,7 @@ class NearbyServiceProvidersAndUsers(APIView):
         ]
 
         nearby_users_locations = Location.objects.filter(
-            location__distance_lte=(user_location, Distance(km=radius))
+            location__distance_lte=(current_location, Distance(km=radius))
         ).exclude(user=user)
 
         nearby_users_info = [
