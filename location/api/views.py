@@ -57,6 +57,49 @@ class LocationView(APIView):
 
 # لوكيشن 
 
+# class NearbyServiceProvidersAndUsers(APIView):
+#     def post(self, request, *args, **kwargs):
+#         token = self.request.auth
+#         user = Token.objects.get(key=token).user
+#         radius = request.data.get("radius", 5000)  # Default radius value if not provided
+#         service_type = request.data.get("service_type")
+        
+#         # Extract current location from request body
+#         current_location_data = request.data.get("current_location")
+#         current_location = Point(current_location_data['longitude'], current_location_data['latitude'])
+
+#         if service_type:
+#             nearby_providers_locations = Location.objects.filter(
+#                 location__distance_lte=(current_location, Distance(km=radius)),
+#                 user__service_provider__services__contains=service_type
+#             ).exclude(user=user)
+#         else:
+#             nearby_providers_locations = Location.objects.filter(
+#                 location__distance_lte=(current_location, Distance(km=radius))
+#             ).exclude(user=user)
+
+#         nearby_providers_info = [
+#             {"username": location.user.username, "service_type": location.user.service_provider.services, "location": (location.location.x, location.location.y)}
+#             for location in nearby_providers_locations
+#         ]
+
+#         nearby_users_locations = Location.objects.filter(
+#             location__distance_lte=(current_location, Distance(km=radius))
+#         ).exclude(user=user)
+
+#         nearby_users_info = [
+#             {"username": location.user.username, "location": (location.location.x, location.location.y)}
+#             for location in nearby_users_locations
+#         ]
+
+#         response_data = {
+#             "nearby_service_providers": nearby_providers_info,
+#             "nearby_users": nearby_users_info
+#         }
+
+#         return Response(response_data)
+
+
 class NearbyServiceProvidersAndUsers(APIView):
     def post(self, request, *args, **kwargs):
         token = self.request.auth
@@ -64,10 +107,20 @@ class NearbyServiceProvidersAndUsers(APIView):
         radius = request.data.get("radius", 5000)  # Default radius value if not provided
         service_type = request.data.get("service_type")
         
-        # Extract current location from request body
+        # Extract and parse current location from form-data
         current_location_data = request.data.get("current_location")
-        current_location = Point(current_location_data['longitude'], current_location_data['latitude'])
+        if current_location_data:
+            try:
+                # Remove "Point (" prefix and ")" suffix, then split by space
+                lat_long = current_location_data.strip("Point ()").split()
+                latitude, longitude = map(float, lat_long)
+                current_location = Point(longitude, latitude)
+            except (ValueError, TypeError):
+                return Response({"error": "Invalid format for current_location."}, status=400)
+        else:
+            return Response({"error": "current_location is required."}, status=400)
 
+        # Filter logic for service providers
         if service_type:
             nearby_providers_locations = Location.objects.filter(
                 location__distance_lte=(current_location, Distance(km=radius)),
@@ -75,7 +128,8 @@ class NearbyServiceProvidersAndUsers(APIView):
             ).exclude(user=user)
         else:
             nearby_providers_locations = Location.objects.filter(
-                location__distance_lte=(current_location, Distance(km=radius))
+                location__distance_lte=(current_location, Distance(km=radius)),
+                user__service_provider__isnull=False  # Ensure it is a service provider
             ).exclude(user=user)
 
         nearby_providers_info = [
@@ -83,14 +137,19 @@ class NearbyServiceProvidersAndUsers(APIView):
             for location in nearby_providers_locations
         ]
 
+        # Filter logic for nearby users
         nearby_users_locations = Location.objects.filter(
-            location__distance_lte=(current_location, Distance(km=radius))
+            location__distance_lte=(current_location, Distance(km=radius)),
         ).exclude(user=user)
 
         nearby_users_info = [
             {"username": location.user.username, "location": (location.location.x, location.location.y)}
             for location in nearby_users_locations
         ]
+
+        # Debugging information
+        print(f"Nearby Service Providers: {nearby_providers_info}")
+        print(f"Nearby Users: {nearby_users_info}")
 
         response_data = {
             "nearby_service_providers": nearby_providers_info,
