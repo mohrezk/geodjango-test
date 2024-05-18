@@ -176,6 +176,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
     'https://geodjango-test.onrender.com',
     'https://*', 
     'http://*',
