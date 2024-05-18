@@ -1,4 +1,4 @@
-from .views import LocationView, NearbyUsers
+from .views import LocationView,NearbyServiceProvidersAndUsers
 from django.urls import path
 
 
