@@ -10,7 +10,8 @@ from rest_framework.views import APIView
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.contrib.gis.measure import Distance
+from django.contrib.gis.geos import Point
 
 class LocationView(APIView):
     authentication_classes = [TokenAuthentication]
