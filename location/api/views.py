@@ -137,19 +137,16 @@ class NearbyServiceProvidersAndUsers(APIView):
             for location in nearby_providers_locations
         ]
 
-        # Filter logic for nearby users
+        # Filter logic for nearby users (excluding service providers)
         nearby_users_locations = Location.objects.filter(
             location__distance_lte=(current_location, Distance(km=radius)),
+            user__service_provider__isnull=True  # Ensure it is a regular user
         ).exclude(user=user)
 
         nearby_users_info = [
             {"username": location.user.username, "location": (location.location.x, location.location.y)}
             for location in nearby_users_locations
         ]
-
-        # Debugging information
-        print(f"Nearby Service Providers: {nearby_providers_info}")
-        print(f"Nearby Users: {nearby_users_info}")
 
         response_data = {
             "nearby_service_providers": nearby_providers_info,
