@@ -3,8 +3,10 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
-from .serializers import CustomerRegisterSerializer, ServiceProviderRegisterSerializer, UserSerializer
+from .serializers import CustomerRegisterSerializer, ServiceProviderRegisterSerializer, UserSerializer,UpdatePhoneNumberSerializer
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 class CustomerRegisterView(generics.GenericAPIView):
     serializer_class = CustomerRegisterSerializer
@@ -57,3 +59,13 @@ class LogoutView(APIView):
         request.auth.delete()
 
         return Response(status=status.HTTP_200_OK)
+
+class UpdatePhoneNumberView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UpdatePhoneNumberSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Phone number updated successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
