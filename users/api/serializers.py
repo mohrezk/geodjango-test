@@ -83,3 +83,11 @@ class ServiceProviderRegisterSerializer(serializers.ModelSerializer):
         ServiceProvider.objects.create(user=user)
 
         return user
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class UpdatePhoneNumberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['phone_number']
