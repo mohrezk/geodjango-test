@@ -133,7 +133,12 @@ class NearbyServiceProvidersAndUsers(APIView):
             ).exclude(user=user)
 
         nearby_providers_info = [
-            {"username": location.user.username, "service_type": location.user.service_provider.services, "location": (location.location.x, location.location.y)}
+            {
+                "username": location.user.username,
+                "phone_number": location.user.phone_number,
+                "service_type": location.user.service_provider.services,
+                "location": (location.location.x, location.location.y)
+                }
             for location in nearby_providers_locations
         ]
 
@@ -144,7 +149,11 @@ class NearbyServiceProvidersAndUsers(APIView):
         ).exclude(user=user)
 
         nearby_users_info = [
-            {"username": location.user.username, "location": (location.location.x, location.location.y)}
+            {
+                "username": location.user.username,
+                "phone_number": location.user.phone_number,
+                "location": (location.location.x, location.location.y)
+                }
             for location in nearby_users_locations
         ]
 
