@@ -178,6 +178,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://road-assistant-ten.vercel.app",
+    'https://geodjango-test.onrender.com',
     'https://geodjango-test-no-docker.onrender.com',
     'https://*', 
     'http://*',
@@ -185,9 +186,12 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://geodjango-test.onrender.com',
+    'https://geodjango-test-no-docker.onrender.com',
     'https://*', 
     'http://*',
 ]
+CORS_ALLOWED_ALL_ORIGINS = True
+CORS_ALLOWED_CREDENTIALS = True
 
 
 # GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
