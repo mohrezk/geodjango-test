@@ -178,7 +178,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://road-assistant-ten.vercel.app",
-    'https://geodjango-test.onrender.com',
+    'https://geodjango-test-no-docker.onrender.com',
     'https://*', 
     'http://*',
 ]
