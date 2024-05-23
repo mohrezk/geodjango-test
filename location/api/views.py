@@ -104,7 +104,7 @@ class NearbyServiceProvidersAndUsers(APIView):
     def post(self, request, *args, **kwargs):
         token = self.request.auth
         user = Token.objects.get(key=token).user
-        radius = request.data.get("radius", 5000)  # Default radius value if not provided
+        radius = request.data.get("radius", 10)  # Default radius value if not provided
         service_type = request.data.get("service_type")
         
         # Extract and parse current location from form-data
