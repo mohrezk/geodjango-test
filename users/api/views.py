@@ -49,8 +49,9 @@ class CustomAuthToken(ObtainAuthToken):
 
         return Response({
             'token':token.key,
-            'user_id':user.pk,
-            'is_customer':user.is_customer
+            # 'user':user.pk,
+            "user":UserSerializer(user, context=self.get_serializer_context()).data,
+            # 'is_customer':user.is_customer
         })
     
 
