@@ -56,6 +56,8 @@ class CustomAuthToken(ObtainAuthToken):
     
 
 class LogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request, format=None):
         request.auth.delete()
 
