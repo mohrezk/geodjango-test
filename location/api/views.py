@@ -101,6 +101,10 @@ class LocationView(APIView):
 
 
 class NearbyServiceProvidersAndUsers(APIView):
+    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, *args, **kwargs):
         token = self.request.auth
         user = Token.objects.get(key=token).user
