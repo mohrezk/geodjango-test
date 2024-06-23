@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "location",
+    "phones",
     "rest_framework",
     "rest_framework.authtoken",
 
