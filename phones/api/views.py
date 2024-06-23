@@ -133,7 +133,7 @@ class VerifyPhoneNumberSinchView(APIView):
 
         try:
             # Verify OTP via Sinch
-            response = requests.post(sinch_url, json=payload, headers=headers, auth=auth)
+            response = requests.put(sinch_url, json=payload, headers=headers, auth=auth)
             response.raise_for_status()
             verification_status = response.json().get("status")
             if verification_status != "SUCCESSFUL":
